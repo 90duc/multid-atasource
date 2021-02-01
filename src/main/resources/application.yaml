@@ -1,0 +1,118 @@
+spring:
+  application:
+    name: multi-datasource
+  profiles:
+    active: dev
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/base?autoReconnect=true&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8
+    username: root
+    password: admin
+    druid:
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+          enabled: true
+        wall:
+          config:
+            multi-statement-allow: true
+      stat-view-servlet:
+        enabled: false
+mybatis:
+  mapper-locations: classpath*:mapper/base/*.xml
+  type-aliases-package: com.mk.mybatis.multidatasource
+  configuration:
+    map-underscore-to-camel-case: true
+
+sys:
+  one-mybatis:
+    datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/man?autoReconnect=true&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8
+      username: root
+      password: admin
+      druid:
+        initial-size: 10
+        max-active: 100
+        min-idle: 10
+        max-wait: 60000
+        pool-prepared-statements: true
+        max-pool-prepared-statement-per-connection-size: 20
+        time-between-eviction-runs-millis: 60000
+        min-evictable-idle-time-millis: 300000
+        validation-query: SELECT 1 FROM DUAL
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        filter:
+          stat:
+            log-slow-sql: true
+            slow-sql-millis: 1000
+            merge-sql: true
+            enabled: true
+          wall:
+            config:
+              multi-statement-allow: true
+        stat-view-servlet:
+          enabled: false
+    mybatis:
+      mapper-locations: classpath*:mapper/one/*.xml
+      type-aliases-package: com.mk.mybatis.multidatasource.one.entity
+      configuration:
+        map-underscore-to-camel-case: true
+  two-mybatis:
+    datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/person?autoReconnect=true&zeroDateTimeBehavior=convertToNull&characterEncoding=UTF-8
+      username: root
+      password: admin
+      druid:
+        initial-size: 10
+        max-active: 100
+        min-idle: 10
+        max-wait: 60000
+        pool-prepared-statements: true
+        max-pool-prepared-statement-per-connection-size: 20
+        time-between-eviction-runs-millis: 60000
+        min-evictable-idle-time-millis: 300000
+        validation-query: SELECT 1 FROM DUAL
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: false
+        filter:
+          stat:
+            log-slow-sql: true
+            slow-sql-millis: 1000
+            merge-sql: true
+            enabled: true
+          wall:
+            config:
+              multi-statement-allow: true
+        stat-view-servlet:
+          enabled: false
+    mybatis:
+      mapper-locations: classpath*:mapper/two/*.xml
+      type-aliases-package: com.mk.mybatis.multidatasource.two.entity
+      configuration:
+        map-underscore-to-camel-case: true
+
+server:
+  port: 8080
+
